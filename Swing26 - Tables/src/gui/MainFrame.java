@@ -69,11 +69,10 @@ public class MainFrame extends JFrame {
 
 		formPanel.setFormListener(new FormListener() {
 			public void formEventOccurred(FormEvent ev) {
-
 //				textPanel.appendText(name + ": " + occupation + ": "
 //						+ ageCategory + ", " + empCat + ", " + gender + "\n");
-	
 				controller.addPerson(ev);
+				tablePanel.refresh();
 			}
 		});
 

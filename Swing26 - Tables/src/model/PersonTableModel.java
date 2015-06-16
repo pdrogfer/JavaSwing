@@ -7,14 +7,22 @@ import javax.swing.table.AbstractTableModel;
 public class PersonTableModel extends AbstractTableModel {
 
 	private List<Person> db;
-	
+	private String[] colNames = { "ID", "Name", "Occupation", "Age Category",
+			"Employment Category", "US Citizen", "Tax ID" };
+
 	public PersonTableModel() {
 
 	}
+
 	public void setData(List<Person> db) {
 		this.db = db;
 	}
-	
+
+	@Override
+	public String getColumnName(int column) {
+		return colNames[column];
+	}
+
 	@Override
 	public int getRowCount() {
 		// number of items in the list is equal to the rows
@@ -30,7 +38,7 @@ public class PersonTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Person person = db.get(rowIndex);
-		
+
 		switch (columnIndex) {
 		case 0:
 			return person.getId();
