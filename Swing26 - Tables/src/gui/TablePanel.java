@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import model.Person;
+import model.PersonTableModel;
 
 public class TablePanel extends JPanel {
 

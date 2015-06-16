@@ -40,6 +40,9 @@ public class MainFrame extends JFrame {
 		tablePanel = new TablePanel();
 		
 		controller = new Controller();
+		
+		tablePanel.setData(controller.getPeople());
+		
 		fileChooser = new JFileChooser();
 		fileChooser.addChoosableFileFilter(new PersonFileFilter());
 		setJMenuBar(createMenuBar());
@@ -81,7 +84,7 @@ public class MainFrame extends JFrame {
 		add(btn, BorderLayout.SOUTH);
 
 		setSize(800, 500);
-		// to avoid fields collapsing and dissapearing on resizing
+		// to avoid fields collapsing and disappearing on resizing
 		setMinimumSize(new Dimension(500, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);

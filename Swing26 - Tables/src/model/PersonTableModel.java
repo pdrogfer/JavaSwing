@@ -1,10 +1,8 @@
-package gui;
+package model;
 
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
-
-import model.Person;
 
 public class PersonTableModel extends AbstractTableModel {
 
