@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -42,6 +43,11 @@ public class Database {
 		
 		try {
 			Person[] persons = (Person[]) ois.readObject();
+			
+			people.clear();
+			
+			people.addAll(Arrays.asList(persons));
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

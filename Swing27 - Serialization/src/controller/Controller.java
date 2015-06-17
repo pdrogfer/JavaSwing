@@ -1,8 +1,11 @@
 package controller;
 
+import gui.FormEvent;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-import gui.FormEvent;
 import model.AgeCategory;
 import model.Database;
 import model.EmploymentCategory;
@@ -71,4 +74,21 @@ public class Controller {
 		db.addPerson(person);
 		System.out.println("person added to database");
 	}
+	
+	public void saveToFile(File file) throws IOException {
+		db.saveToFile(file);
+	}
+	
+	public void loadFromFile(File file) throws IOException {
+		db.loadFromFile(file);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

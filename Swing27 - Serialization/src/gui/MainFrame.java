@@ -1,9 +1,11 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -38,11 +40,11 @@ public class MainFrame extends JFrame {
 		textPanel = new TextPanel();
 		formPanel = new FormPanel();
 		tablePanel = new TablePanel();
-		
+
 		controller = new Controller();
-		
+
 		tablePanel.setData(controller.getPeople());
-		
+
 		fileChooser = new JFileChooser();
 		fileChooser.addChoosableFileFilter(new PersonFileFilter());
 		setJMenuBar(createMenuBar());
@@ -69,8 +71,8 @@ public class MainFrame extends JFrame {
 
 		formPanel.setFormListener(new FormListener() {
 			public void formEventOccurred(FormEvent ev) {
-//				textPanel.appendText(name + ": " + occupation + ": "
-//						+ ageCategory + ", " + empCat + ", " + gender + "\n");
+				// textPanel.appendText(name + ": " + occupation + ": "
+				// + ageCategory + ", " + empCat + ", " + gender + "\n");
 				controller.addPerson(ev);
 				tablePanel.refresh();
 			}
@@ -78,7 +80,7 @@ public class MainFrame extends JFrame {
 
 		add(toolbar, BorderLayout.NORTH);
 		add(formPanel, BorderLayout.WEST);
-		//add(textPanel, BorderLayout.CENTER);
+		// add(textPanel, BorderLayout.CENTER);
 		add(tablePanel, BorderLayout.CENTER);
 		add(btn, BorderLayout.SOUTH);
 
@@ -139,42 +141,58 @@ public class MainFrame extends JFrame {
 				ActionEvent.CTRL_MASK));
 
 		importDataItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent ev) {
 				// this is the way to show the explorer to pickup a file:
 				// fileChooser.showOpenDialog(MainFrame.this);
 				// if a file is selected and click OK:
 				if (fileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-					System.out.println(fileChooser.getSelectedFile());
+					try {
+						controller.loadFromFile(fileChooser.getSelectedFile());
+						tablePanel.refresh();
+					} catch (IOException e) {
+						JOptionPane.showMessageDialog(MainFrame.this,
+								"Could not load data from file", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
-				
+
 			}
 		});
-		
+
 		exportDataItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// same as above, but for saving a file in a location
 				if (fileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-					System.out.println(fileChooser.getSelectedFile());
+					try {
+						controller.saveToFile(fileChooser.getSelectedFile());
+					} catch (IOException e1) {
+						JOptionPane.showMessageDialog(MainFrame.this,
+								"Could not save data to file", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
-		
+
 		exitFileMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/* the INFORMATION_MESSAGE option sets a different icon.
-				 * Explore also WARNING_MESSAGE, QUESTION_MESSAGE, and
-				 * ERROR_MESSAGE 
+				/*
+				 * the INFORMATION_MESSAGE option sets a different icon. Explore
+				 * also WARNING_MESSAGE, QUESTION_MESSAGE, and ERROR_MESSAGE
 				 */
-				// the text entered can be retrieved through the variable textEntered
-				String textEntered = JOptionPane.showInputDialog(MainFrame.this,
-						"Enter your User ID", "User Authentication",
-						JOptionPane.OK_OPTION|JOptionPane.INFORMATION_MESSAGE);
+				// the text entered can be retrieved through the variable
+				// textEntered
+				String textEntered = JOptionPane.showInputDialog(
+						MainFrame.this, "Enter your User ID",
+						"User Authentication", JOptionPane.OK_OPTION
+								| JOptionPane.INFORMATION_MESSAGE);
 
-				// show a confirmation panel (remember Android?), retrieve the action
+				// show a confirmation panel (remember Android?), retrieve the
+				// action
 				int action = JOptionPane.showConfirmDialog(MainFrame.this,
 						"Do you really want to exit the app?", "Confirm Exit",
 						JOptionPane.OK_CANCEL_OPTION);
