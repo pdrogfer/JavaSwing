@@ -1,6 +1,6 @@
 ########## go to www.gitignore.io to generate the Eclipse file #############
 
-### OSX ###
+################ OSX ####################
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -26,3 +26,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+
+################ Eclipse #######################
+bin/
